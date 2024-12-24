@@ -1,0 +1,47 @@
+
+.q{
+    width: 500px; 
+    height: 500px; 
+    background-image: url( photo_2024-12-06_22-29-38.jpg   );     background-size: cover;
+    background-position: center; 
+    margin-left: 200px; 
+    margin-right: 100px; 
+    margin-top: 50px; 
+ margin-bottom: 300px; 
+    padding: 200px;
+}
+
+w {
+    margin: 100px 50px; 
+    padding: 10px 20px 40px 50px; 
+    background-color: rgb(0, 255, 55); 
+
+}
+
+
+
+
+
+
+.body {
+    background-image: url( photo_2024-12-06_22-29-38.jpg  );
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    
+    height: 100%; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
