@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars IT School в Андижане</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+        }
+        h2 {
+            color: #333;
+        }
+        .benefits {
+            list-style-type: none;
+            padding: 0;
+        }
+        .benefits li {
+            background: #e2e2e2;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #007bff;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Mars IT School!</h1>
+        <p>Ваш путь к успешной карьере в IT начинается здесь.</p>
+    </header>
+    <div class="container">
+        <h2>Почему выбирают нас?</h2>
+        <ul class="benefits">
+            <li>Качественное образование от опытных преподавателей</li>
+            <li>Практические занятия и проекты</li>
+            <li>Гибкий график обучения</li>
+            <li>Поддержка в трудоустройстве</li>
+        </ul>
+        <h2>Контактная информация</h2>
+        <p>Адрес: Ташкент, ул. Буюк Ипак Йули, </p>
+        <p>Телефон: +998 90 123 45 67</p>
+        <p>Email: info@marsitschool.uz</p>
+    </div>
+    <footer>
+        <p>&copy; 2024 Mars IT School. Все права защищены.</p>
+    </footer>
+    <h3>Если возникли вопросы сюда</h3>
+    <form id="messageForm">
+        <input type="text" id="message" placeholder="Введите Ваше сообщение" required>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const message = document.getElementById('message').value;
+
+            fetch('https://api.telegram.org/bot7714551955:AAGhTL25U-8Zq_PmH-Kwg6cyvl5q_osY0zg/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: '1379128117',
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Успех:', data);
+                alert('Сообщение отправлено!');
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+                alert('Ошибка при отправке сообщения.');
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>
