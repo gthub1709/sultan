@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магический шар предсказаний</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a, #4a4a4a);
+            font-family: Arial, sans-serif;
+        }
+
+        #magicBall {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, #444, #000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin: 30px auto;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        #magicBall:hover {
+            transform: scale(1.05);
+        }
+
+        .spin {
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #askButton {
+            padding: 12px 24px;
+            font-size: 18px;
+            background: #8a2be2;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin: 20px 0;
+        }
+
+        #askButton:hover {
+            background: #7a1dd2;
+        }
+
+        #answer {
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            margin: 20px;
+            padding: 15px;
+            max-width: 400px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #answer.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="magicBall">🎱</div>
+    <button id="askButton">Спросить шар</button>
+    <div id="answer"></div>
+
+    <script>
+        const magicBall = document.getElementById('magicBall');
+        const answerDiv = document.getElementById('answer');
+        const askButton = document.getElementById('askButton');
+
+        const translations = {
+            'yes': 'Да',
+            'no': 'Нет',
+            'maybe': 'Возможно'
+        };
+
+        async function getAnswer() {
+            magicBall.classList.add('spin');
+            answerDiv.textContent = '';
+            answerDiv.classList.remove('show');
+
+            try {
+                const response = await fetch('https://yesno.wtf/api');
+                const data = await response.json();
+                
+                setTimeout(() => {
+                    magicBall.classList.remove('spin');
+                    const translatedAnswer = translations[data.answer] || data.answer;
+                    answerDiv.textContent = translatedAnswer;
+                    answerDiv.classList.add('show');
+                }, 1000);
+            } catch (error) {
+                setTimeout(() => {
+                    magicBall.classList.remove('spin');
+                    answerDiv.textContent = 'Не могу получить ответ. Попробуйте позже.';
+                    answerDiv.classList.add('show');
+                }, 1000);
+            }
+        }
+
+        askButton.addEventListener('click', getAnswer);
+        magicBall.addEventListener('click', getAnswer);
+    </script>
+</body>
+</html>
